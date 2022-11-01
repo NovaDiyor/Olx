@@ -1,0 +1,24 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+								<table id="datatables-dashboard-projects" class="table table-striped my-0">
+									<thead>
+										<tr>
+											<th>Owner</th>
+											<th>Name</th>
+											<th>Url</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in is_admin %}
+										<tr>
+											<td class="d-none d-xl-table-cell">{{i.owner}}</td>
+											<td class="d-none d-md-table-cell">{{i.name}}</td>
+											<td class="d-none d-md-table-cell"><a href="{% url 'about' i.id%}">About</a></td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

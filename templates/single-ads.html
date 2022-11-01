@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+        <main class="content">
+            <div class="row">
+                <div class="col-12 col-xl-12">
+                    <div class="card">
+                        <table class="table" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th>Owner</th>
+                                    <th>Region</th>
+                                    <th>Category</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    {% if ads.is_top == True %}
+                                    <th>Is-Top</th>
+                                    {% else %}
+                                    <th>Is-Recommended</th>
+                                    {% endif %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="{% url 'single' ads.owner.id %}">{{ ads.owner.username }}</a></td>
+                                    <td>{{ ads.region.name }}</td>
+                                    <td>{{ ads.category.name }}</td>
+                                    <td><img width="50" src="{{ ads.photo.first.photo.url }}"></td>
+                                    <td>{{ ads.name }}</td>
+                                    <td>{{ ads.description }}</td>
+                                    {% if ads.status == 1 %}
+                                    <td><span class="badge badge-warning">In Admin</span></td>
+                                    {% elif ads.status == 2 %}
+                                    <td><span class="badge badge-success">Accepted</span></td>
+                                    {% elif ads.status == 3 %}
+                                    <td><span class="badge badge-danger">Rejected</span></td>
+                                    {% elif ads.status == 4 %}
+                                    <td><span class="badge badge-info">Sold</span></td>
+                                    {% endif %}
+                                    <td><img style="width: 16px;" src="{% static 'check.png' %}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+{% endblock %}

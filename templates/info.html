@@ -1,0 +1,117 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid p-0">
+
+
+
+
+
+					<div class="row">
+						<div class="col-12 col-lg-6 col-xl-12 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<div class="card-actions float-right">
+										<div class="dropdown show">
+											<a href="#" data-toggle="dropdown" data-display="static">
+              <i class="align-middle" data-feather="more-horizontal"></i>
+            </a>
+
+											<div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+										</div>
+									</div>
+									<h5 class="card-title mb-0">Latest Ads</h5>
+								</div>
+								<table id="datatables-dashboard-projects" class="table table-striped my-0">
+									<thead>
+										<tr>
+
+											<th class="d-none d-md-table-cell">Company Name</th>
+											<th class="d-none d-md-table-cell">Logo</th>
+											<th class="d-none d-md-table-cell">Description</th>
+											<th class="d-none d-md-table-cell">Google play</th>
+											<th class="d-none d-md-table-cell">App Store</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+
+											<td class="d-none d-xl-table-cell">{{info.company_name}}</td>
+											<td class="d-none d-xl-table-cell"><img width="300px" src="{{info.logo.url}}" alt=""></td>
+											<td class="d-none d-xl-table-cell">{{info.description}}</td>
+											<td class="d-none d-md-table-cell">{{info.googleplay}}</td>
+											<td class="d-none d-md-table-cell">{{info.appstore}}</td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
+	<main class="main d-flex w-800">
+
+		<div class="container d-flex flex-column">
+			<div class="row h-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
+
+
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-4">
+
+									<form action="{% url 'info' %}"  method="post" enctype="multipart/form-data" >
+										{% csrf_token %}
+										<div class="form-group">
+											<label for="company_name">company_name</label>
+											<input class="form-control form-control-lg" type="text" name="company_name" placeholder="Enter your company_name">
+										</div>
+										<div class="form-group">
+											<label for="logo">logo</label>
+											<input class="form-control form-control-lg" type="file" name="logo" placeholder="Enter your logo">
+											<small></small>
+										</div>
+										<div class="form-group">
+											<label for="description">description</label>
+											<input class="form-control form-control-lg" type="text" name="description" placeholder="Enter your compadescriptionny_name">
+											<small></small>
+										</div>
+										<div class="form-group">
+											<label for="googleplay">googleplay</label>
+											<input class="form-control form-control-lg" type="text" name="googleplay" placeholder="Enter your googleplay">
+											<small></small>
+										</div>
+										<div class="form-group">
+											<label for="appstore">appstore</label>
+											<input class="form-control form-control-lg" type="text" name="appstore" placeholder="Enter your appstore">
+											<small></small>
+										</div>
+<!--										<div>-->
+<!--&lt;!&ndash;											<div class="custom-control custom-checkbox align-items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;												<input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me" checked="">&ndash;&gt;-->
+<!--&lt;!&ndash;												<label class="custom-control-label text-small">Remember me next time</label>&ndash;&gt;-->
+<!--&lt;!&ndash;											</div>&ndash;&gt;-->
+<!--										</div>-->
+										<div class="text-center mt-3">
+											<button type="submit" class="btn btn-lg btn-primary">Sign in</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

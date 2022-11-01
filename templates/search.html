@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+    <main class="content">
+        <div class="row">
+            <div class="col-12 col-xl-12">
+                <div class="card">
+                    <table class="table">
+                        {% if status == '1' %}
+                            <thead>
+                                <tr>
+                                    <th>Owner</th>
+                                    <th>Region</th>
+                                    <th>Category</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Is-Top</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in search %}
+                                    <tr>
+                                        <td><a href="{% url 'single' i.owner.id %}">{{ i.owner.username }}</a></td>
+                                        <td>{{ i.region.name }}</td>
+                                        <td>{{ i.category.name }}</td>
+                                        <td><img width="50" src="{{ ads.photo.first.photo.url }}"></td>
+                                        <td>{{ i.name }}</td>
+                                        <td>{{ i.description }}</td>
+                                        {% if i.status == 1 %}
+                                        <td><span class="badge badge-warning">In Admin</span></td>
+                                        {% elif i.status == 2 %}
+                                        <td><span class="badge badge-success">Accepted</span></td>
+                                        {% elif i.status == 3 %}
+                                        <td><span class="badge badge-danger">Rejected</span></td>
+                                        {% elif i.status == 4 %}
+                                        <td><span class="badge badge-info">Sold</span></td>
+                                        {% endif %}
+                                        {% if i.is_top == True %}
+                                        <td><img style="width: 16px;" src="{% static 'check.png' %}"></td>
+                                        {% else %}
+                                        <td><img style="width: 16px;" src="{% static 'close.png' %}"></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% elif status == '2' %}
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Email</th>
+                                    <th>Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in search_user %}
+                                    <tr>
+                                        <td><a href="{% url 'single' i.id %}">{{ i.username }}</a></td>
+                                        <td>{{ i.date_joined }}</td>
+                                        <td>{{ i.email }}</td>
+                                        <td>{{ i.number }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        {% else %}
+                            {% if status == '1' %}
+                            <h1>Sorry we haven't that Ads</h1>
+                            {% else %}
+                            <h1>Sorry we haven't that User</h1>
+                            {% endif %}
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

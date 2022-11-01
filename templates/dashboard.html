@@ -1,0 +1,256 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+			<main class="content">
+				<div class="container-fluid p-0">
+					<div class="row">
+						<div class="col-12 col-sm-6 col-xl d-flex">
+							<div class="card flex-fill">
+								<div class="card-body py-4">
+									<div class="media">
+										<div class="d-inline-block mt-2 mr-3">
+											<i class="feather-lg text-primary" data-feather="users"></i>
+										</div>
+										<div class="media-body">
+											<h3 class="mb-2">{{ visitors }}</h3>
+											<div class="mb-0">Users</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-sm-6 col-xl d-flex">
+							<div class="card flex-fill">
+								<div class="card-body py-4">
+									<div class="media">
+										<div class="d-inline-block mt-2 mr-3">
+											<i class="feather-lg text-warning" data-feather="folder"></i>
+										</div>
+										<div class="media-body">
+											<h3 class="mb-2">{{ in_admin }}</h3>
+											<div class="mb-0">In Admin</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-sm-6 col-xl d-flex">
+							<div class="card flex-fill">
+								<div class="card-body py-4">
+									<div class="media">
+										<div class="d-inline-block mt-2 mr-3">
+											<i class="feather-lg text-success" data-feather="check-square"></i>
+										</div>
+										<div class="media-body">
+											<h3 class="mb-2">{{ accepted }}</h3>
+											<div class="mb-0">Accepted Ads</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-sm-6 col-xl d-flex">
+							<div class="card flex-fill">
+								<div class="card-body py-4">
+									<div class="media">
+										<div class="d-inline-block mt-2 mr-3">
+											<i class="feather-lg text-danger" data-feather="x-square"></i>
+										</div>
+										<div class="media-body">
+											<h3 class="mb-2">{{ rejected }}</h3>
+											<div class="mb-0">Rejected Ads</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-sm-6 col-xl d-flex">
+							<div class="card flex-fill">
+								<div class="card-body py-4">
+									<div class="media">
+										<div class="d-inline-block mt-2 mr-3">
+											<i class="feather-lg text-info" data-feather="info"></i>
+										</div>
+										<div class="media-body">
+											<h3 class="mb-2">{{ sold }}</h3>
+											<div class="mb-0">Sold Ads</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-lg-12 d-flex">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<span class="badge badge-primary float-right">Monthly</span>
+									<h5 class="card-title mb-0">Total Revenue</h5>
+								</div>
+								<div class="card-body">
+									<div class="chart chart-lg">
+										<canvas id="chartjs-dashboard-line"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-lg-6 col-xl-4 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<div class="card-actions float-right">
+										<div class="dropdown show">
+											<a href="#" data-toggle="dropdown" data-display="static">
+											    <i class="align-middle" data-feather="more-horizontal"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+										</div>
+									</div>
+									<h5 class="card-title mb-0">Calendar</h5>
+								</div>
+								<div class="card-body d-flex">
+									<div class="align-self-center w-100">
+										<div class="chart">
+											<div id="datetimepicker-dashboard"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-xl-8 d-none d-xl-flex">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<div class="card-actions float-right">
+										<div class="dropdown show">
+											<a href="#" data-toggle="dropdown" data-display="static">
+											    <i class="align-middle" data-feather="more-horizontal"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+										</div>
+									</div>
+									<h5 class="card-title mb-0">Weekly sales</h5>
+								</div>
+								<div class="card-body d-flex">
+									<div class="align-self-center w-100">
+										<div class="py-3">
+											<div class="chart chart-xs">
+												<canvas id="chartjs-dashboard-pie"></canvas>
+											</div>
+										</div>
+										<table class="table mb-0">
+											<thead>
+												<tr>
+													<th>Source</th>
+													<th class="text-center">Revenue</th>
+													<th class="text-right">Value</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><i class="fas fa-square-full text-primary"></i> Direct</td>
+													<td class="text-center">$ 2602</td>
+													<td class="text-right text-success">+43%</td>
+												</tr>
+												<tr>
+													<td><i class="fas fa-square-full text-warning"></i> Affiliate</td>
+													<td class="text-center">$ 1253</td>
+													<td class="text-right text-success">+13%</td>
+												</tr>
+												<tr>
+													<td><i class="fas fa-square-full text-danger"></i> E-mail</td>
+													<td class="text-center">$ 541</td>
+													<td class="text-right text-success">+24%</td>
+												</tr>
+												<tr>
+													<td><i class="fas fa-square-full text-dark"></i> Other</td>
+													<td class="text-center">$ 1465</td>
+													<td class="text-right text-success">+11%</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-12 col-lg-6 col-xl-8 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<h5 class="card-title mb-0">All Ads</h5>
+								</div>
+								<table id="datatables-dashboard-projects" class="table table-striped my-0">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th class="d-none d-xl-table-cell">Start Date</th>
+											<th>Status</th>
+											<th class="d-none d-md-table-cell">Owner</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in ads %}
+											<tr>
+												<td><a href="{% url 'single-ads' i.id %}">{{ i.name }}</a></td>
+												<td class="d-none d-xl-table-cell">{{ i.date }}</td>
+												{% if i.status == 1 %}
+												<td><span class="badge badge-warning">In Admin</span></td>
+												{% elif i.status == 2 %}
+												<td><span class="badge badge-success">Accepted</span></td>
+												{% elif i.status == 3 %}
+												<td><span class="badge badge-danger">Rejected</span></td>
+												{% elif i.status == 4 %}
+												<td><span class="badge badge-info">Sold</span></td>
+												{% endif %}
+												<td class="d-none d-md-table-cell"><a href="{% url 'single' i.owner.id %}">{{ i.owner }}</a></td>
+											</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="col-12 col-lg-6 col-xl-4 d-flex">
+							<div class="card flex-fill w-100">
+								<div class="card-header">
+									<div class="card-actions float-right">
+										<div class="dropdown show">
+											<a href="#" data-toggle="dropdown" data-display="static">
+											    <i class="align-middle" data-feather="more-horizontal"></i>
+											</a>
+											<div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+										</div>
+									</div>
+									<h5 class="card-title mb-0">Sales / Revenue</h5>
+								</div>
+								<div class="card-body d-flex w-100">
+									<div class="align-self-center chart chart-lg">
+										<canvas id="chartjs-dashboard-bar"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

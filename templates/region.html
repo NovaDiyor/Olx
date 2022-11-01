@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <form action="{% url 'add-region' %}" method="post" style="margin-bottom: 20px; display:flex; justify-content: center" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <input type="text" name="name" placeholder="region_name" class="form-control" required>
+                            </div>
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-12 col-xl-12">
+                    <div class="card">
+                        <table class="table" style="text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in region %}
+                                    <tr>
+                                        <td>{{ i.name }}</td>
+                                        <td class="d-none d-md-table-cell"><a href="{% url 'update-region' i.id %}"><i class="align-middle" data-feather="edit-2"></i></a></td>
+                                        <td>
+										<a href="#"><button type="submit" data-toggle="modal" data-target="#sizedModalMd" data-feather="trash">Delete</button></a>
+										<div class="modal fade" id="sizedModalMd" tabindex="-1" role="dialog" aria-hidden="true">
+											<div class="modal-dialog modal-md" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">Delete</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body m-3">
+														<p class="mb-0">Do You Want To Delete This Region?</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+														<button type="button" class="btn btn-danger"><a href="{% url 'delete-region' i.id %}" style="text-decoration: none; color: white;">Yes</a></button>
+													</div>
+												</div>
+											</div>
+										</div>
+										</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+{% endblock %}

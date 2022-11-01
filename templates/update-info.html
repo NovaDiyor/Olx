@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <form action="{% url 'update-info' info.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <input type="text" name="name" value="{{ info.company_name }}" placeholder="company_name" class="form-control">
+                            </div>
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <input type="file" name="logo" value="{{ info.logo.url }}" class="form-control-file" >
+                            </div>
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <input type="text" name="description" value="{{ info.description }}" placeholder="description" class="form-control">
+                            </div>
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <input type="text" name="google" value="{{ info.google_play }}" placeholder="google_play" class="form-control">
+                            </div>
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <input type="text" name="appstore" value="{{ info.appstore }}" placeholder="appstore" class="form-control">
+                            </div>
+                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+{% endblock %}

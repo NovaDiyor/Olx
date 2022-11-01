@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+	<main class="content">
+		<div class="container-fluid p-0">
+			<div class="row">
+				<div class="col-12 col-lg-6 col-xl-12 d-flex" style="text-align: center;">
+					<div class="card flex-fill">
+						<div class="card-header">
+							<h5 class="card-title mb-0">Rejected Ads</h5>
+						</div>
+						<table id="datatables-dashboard-projects" class="table table-striped my-0">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th class="d-none d-xl-table-cell">Date joined</th>
+									<th class="d-none d-xl-table-cell">Image</th>
+									<th>Take Back</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for i in rejected %}
+									<tr>
+										<td class="d-none d-xl-table-cell">{{ i.name }}</td>
+										<td class="d-none d-xl-table-cell">{{ i.date }}</td>
+										<td><img width="50" src="{{ i.photo.first.photo.url }}"></td>
+										<td><a href="{% url 'accept' i.id %}"><button type="submit" class="btn btn-success">Accept</button></a></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

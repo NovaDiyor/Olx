@@ -1,0 +1,48 @@
+﻿{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Answer</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12"><h1>Answer: {{info.answer}}</h1></div>
+                    <div class="col-md-12"><h1>Question: {{info.question.question}}</h1></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Answer Update</h4>
+                </div>
+                <form action="{% url 'update_ha' info.id %}" method="post"  enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <div class="row mt-4">
+                        <label for="question">Choose a Question:</label>
+                        <select class="form-control"  id="question" name="question" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                              <option selected>Open this select Question</option>
+                            {%for i in question%}
+                              <option value="{{i.id}}">{{i.question}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Answer</label><input name="answer" type="text" class="form-control" placeholder="first name" value=""></div>
+                    </div>
+                    <div class="mt-5 text-center"><button class="btn btn-primary btn-lg profile-button" type="submit">Save</button></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}
+{% block script %}
+{% endblock script %}

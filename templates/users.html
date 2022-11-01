@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+    <main class="content">
+        <div class="row">
+            <div class="col-12 col-xl-12">
+                <div class="card">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Email</th>
+                                <th>Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in advertiser %}
+                                <tr>
+                                    <td><a href="{% url 'single' i.id %}">{{ i.username }}</a></td>
+                                    <td>{{ i.date_joined }}</td>
+                                    <td>{{ i.email }}</td>
+                                    <td>{{ i.number }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block script %}
+{% endblock script %}

@@ -1,0 +1,60 @@
+﻿{% extends "base.html" %}
+{% load static %}
+{% block content %}
+	<main class="content">
+		<div class="container-fluid p-0">
+			<h1 class="h3 mb-3" style="text-align: center;">Profile</h1>
+			<div class="row">
+				<div class="col-md-12 col-xl-12">
+					<div class="card mb-3">
+						<div class="card-header">
+							<h5 class="card-title mb-0" style="text-align: center;">User Details</h5>
+						</div>
+						<div class="card-body text-center">
+							{% if profile.image %}
+								<img src="{{ profile.image }}" alt="{{ profile.username }}" class="img-fluid rounded-circle mb-2" width="128" height="128">
+							{% else %}
+							<img src="{% static 'default-user.png' %}" alt="{{ profile.username }}" class="img-fluid rounded-circle mb-2" width="128" height="128">
+							{% endif %}
+							<h5 class="card-title mb-0">{{ profile.username }}</h5>
+							{% if profile.status == 1 %}
+							<div class="text-muted mb-2">Admin</div>
+							{% elif profile.status == 2 %}
+							<div class="text-muted mb-2">User</div>
+							{% endif %}
+						</div>
+						<hr class="my-0">
+						<div class="card-body" style="text-align: center;">
+							{% if user == profile %}
+							<h5 class="h6 card-title">About You</h5>
+							{% else %}
+							<h5 class="h6 card-title">About</h5>
+							{% endif %}
+							<ul class="list-unstyled mb-0">
+								<li class="mb-1"><span data-feather="home" class="feather-sm mr-1"></span> Lives in <a href="#">San Francisco, SA</a></li>
+
+								<li class="mb-1"><span data-feather="briefcase" class="feather-sm mr-1"></span> Works at <a href="#">GitHub</a></li>
+								<li class="mb-1"><span data-feather="map-pin" class="feather-sm mr-1"></span> From <a href="#">Boston</a></li>
+							</ul>
+						</div>
+						<hr class="my-0">
+						<div class="card-body" style="text-align: center;">
+							{% if user == profile %}
+							<h5 class="h6 card-title">Your Social Media</h5>
+							{% else %}
+							<h5 class="h6 card-title">Social Media</h5>
+							{% endif %}
+							<ul class="list-unstyled mb-0">
+								<li class="mb-1"><span class="fas fa-globe fa-fw mr-1"></span> <a href="#">staciehall.com</a></li>
+								<li class="mb-1"><span class="fab fa-twitter fa-fw mr-1"></span> <a href="#">Twitter</a></li>
+								<li class="mb-1"><span class="fab fa-facebook fa-fw mr-1"></span> <a href="#">Facebook</a></li>
+								<li class="mb-1"><span class="fab fa-instagram fa-fw mr-1"></span> <a href="#">Instagram</a></li>
+								<li class="mb-1"><span class="fab fa-linkedin fa-fw mr-1"></span> <a href="#">LinkedIn</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}

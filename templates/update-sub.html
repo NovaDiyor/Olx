@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <main class="content">
+        <div class="container-fluid p-0">
+            <form action="{% url 'update-sub' sub.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <input type="text" name="name" value="{{ sub.name }}" placeholder="subcategory_name" class="form-control">
+                        </div>
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <select class="custom-select mb-3" name="category">
+                                {% for i in category %}
+                                    <option value="{{ i.id }}">{{ i.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+{% endblock %}

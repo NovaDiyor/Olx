@@ -1,0 +1,69 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+
+
+
+
+					<div class="row">
+						<div class="col-12 col-lg-6 col-xl-12 d-flex">
+							<div class="card flex-fill">
+								<div class="card-header">
+									<div class="card-actions float-right">
+										<div class="dropdown show">
+											<a href="#" data-toggle="dropdown" data-display="static">
+              <i class="align-middle" data-feather="more-horizontal"></i>
+            </a>
+
+											<div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="#">Action</a>
+												<a class="dropdown-item" href="#">Another action</a>
+												<a class="dropdown-item" href="#">Something else here</a>
+											</div>
+										</div>
+									</div>
+									<h5 class="card-title mb-0">Latest Ads</h5>
+								</div>
+								<table id="datatables-dashboard-projects" class="table table-striped my-0">
+									<thead>
+										<tr>
+											<th class="d-none d-xl-table-cell">Owner</th>
+											<th class="d-none d-xl-table-cell">Region</th>
+											<th class="d-none d-md-table-cell">Category</th>
+											<th class="d-none d-md-table-cell">Status</th>
+											<th class="d-none d-md-table-cell">Date</th>
+											<th class="d-none d-md-table-cell">Is_top</th>
+											<th class="d-none d-md-table-cell">Is_Re</th>
+											<th class="d-none d-md-table-cell">Name</th>
+										</tr>
+									</thead>
+									<tbody>
+									{%for i in ads%}
+										<tr>
+
+											<td class="d-none d-xl-table-cell">{{i.owner}}</td>
+											<td class="d-none d-xl-table-cell">{{i.region.name}}</td>
+											<td class="d-none d-xl-table-cell">{{i.category.name}}</td>
+											<td>{{i.get_status_display}}</td>
+											<td class="d-none d-xl-table-cell">{{i.date}}</td>
+											<td class="d-none d-md-table-cell">{{i.is_top}}</td>
+											<td class="d-none d-md-table-cell">{{i.is_recommended}}</td>
+											<td class="d-none d-md-table-cell">{{i.name}}</td>
+										</tr>
+									{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

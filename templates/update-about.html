@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <form action="{% url 'update-about' about.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <input type="text" name="text" value="{{ about.text }}" placeholder="text" class="form-control">
+                        </div>
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <input type="file" name="image" class="form-control-file" value="{{ about.image.url }}">
+                        </div>
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+{% endblock %}

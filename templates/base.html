@@ -1,0 +1,343 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Bootstrap 4 Admin &amp; Dashboard Template">
+	<meta name="author" content="Bootlab">
+
+	<title>No_name Company</title>
+
+	<link rel="preconnect" href="//fonts.gstatic.com/" crossorigin="">
+
+	<!-- PICK ONE OF THE STYLES BELOW -->
+	<link href="{% static 'css/classic.css'%}" rel="stylesheet">
+	<!-- <link href="css/corporate.css" rel="stylesheet"> -->
+	<!-- <link href="css/modern.css" rel="stylesheet"> -->
+
+	<!-- BEGIN SETTINGS -->
+	<!-- You can remove this after picking a style -->
+	<style>
+		body {
+			opacity: 0;
+		}
+	</style>
+	<!-- <script src="{% static 'js\settings.js'%}"></script> -->
+	<!-- END SETTINGS -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-120946860-6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-120946860-6');
+</script></head>
+
+<body>
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar">
+			<div class="sidebar-content ">
+				<a class="sidebar-brand" href="{% url 'dashboard' %}">
+				   <i class="align-middle" data-feather="box"></i><span class="align-middle">No_name Company</span>
+				</a>
+				<ul class="sidebar-nav">
+					<li class="sidebar-header">
+						Main
+					</li>
+					<li class="sidebar-item">
+						<a href="{% url 'dashboard' %}" class="sidebar-link ">
+						<i class="align-middle" data-feather="bookmark"></i><span class="align-middle">Dashboard</span>
+						</a>
+					</li>
+					<li class="sidebar-item">
+						<a href="#ads" data-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="info"></i> <span class="align-middle">Ads</span>
+						</a>
+						<ul id="ads" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'in-admin' %}">In Admin</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'accepted' %}">Accepted</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'rejected' %}">Rejected</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'sold' %}">Sold</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a href="#auth" data-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="users"></i> <span class="align-middle">Users</span>
+						</a>
+						<ul id="auth" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'admin' %}">Admin</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'advertiser' %}">Advertiser</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a href="#models" data-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Models</span>
+						</a>
+						<ul id="models" class="sidebar-dropdown list-unstyled collapse " data-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'information' %}">Information</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'region' %}">Region</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'category' %}">Category</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'sub-category' %}">Sub-category</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="{% url 'about' %}">About</a></li>
+						</ul>
+					</li>
+				</ul>
+				<div class="sidebar-bottom d-none d-lg-block">
+					<div class="media">
+						<img class="rounded-circle mr-3" src="{% static 'default-user.png' %}" alt="{{ user }}" width="40" height="40">
+						<div class="media-body">
+							<h5 class="mb-1">{{ user }}</h5>
+							<div>
+								<i class="fas fa-circle text-success"></i> Online
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light bg-white">
+				<a class="sidebar-toggle d-flex mr-2">
+				    <i class="hamburger align-self-center"></i>
+				</a>
+				<form class="form-inline d-none d-sm-inline-block" action="{% url 'search' %}" method="post">
+					{% csrf_token %}
+					<input class="form-control form-control-no-border mr-sm-2" name="name" type="text" placeholder="Search projects..." aria-label="Search">
+					<select class="custom-select mb-3" name="status" style="margin-top: 20px; margin-right: 10px">
+						<option value="1">Search Ads</option>
+						<option value="2">Search User</option>
+					</select>
+					<button type="submit" style="margin-top: 5px;" class="btn btn-success">Search</button>
+				</form>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-toggle="dropdown">
+								<i class="align-middle" data-feather="settings"></i>
+						    </a>
+
+							<a class="nav-link d-none d-sm-inline-block" href="#" data-toggle="dropdown">
+                                {% if user.image %}
+									<img src="{{ user.image }}" alt="{{ user }}" class="rounded-circle mr-1"  width="40" height="40">
+								{% else %}
+									<img src="{% static 'default-user.png' %}" alt="{{ user }}" class="rounded-circle mr-1"  width="40" height="40">
+								{% endif %}
+                            </a>
+							<div class="dropdown-menu dropdown-menu-right">
+								{% if user.status == 1 %}
+								<a class="dropdown-item" href="{% url 'profile' user.id %}"><i class="align-middle mr-1" data-feather="user"></i>Profile</a>
+								<a class="dropdown-item" href="{% url 'logout' %}"><i class="align-middle mr-1" data-feather="log-out"></i><span class="align-middle">Log out</span></a>
+								<a class="dropdown-item" href="{% url 'reset' %}"><i class="align-middle mr-1" data-feather="rotate-cw"></i><span class="align-middle">Reset Password</span></a>
+								{% endif %}
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			{% block content %}
+            {% endblock %}
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-left">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Support</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Help Center</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Privacy</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Terms of Service</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-6 text-right">
+							<p class="mb-0">
+								&copy; 2022 - No_name Company created by - <a href="mailto://micaobidova@gmail.com" class="text-muted">Mica_Obidova</a> -
+								<a href="mailto://dbdmjkf@gmail.com" class="text-muted">MDiyor</a> - Firdavth
+							</p>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="{% static 'js\app.js'%}"></script>
+
+	<script>
+		$(function() {
+			// Bar chart
+			new Chart(document.getElementById("chartjs-dashboard-bar"), {
+				type: "bar",
+				data: {
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					datasets: [{
+						label: "Last year",
+						backgroundColor: window.theme.primary,
+						borderColor: window.theme.primary,
+						hoverBackgroundColor: window.theme.primary,
+						hoverBorderColor: window.theme.primary,
+						data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79]
+					}, {
+						label: "This year",
+						backgroundColor: "#E8EAED",
+						borderColor: "#E8EAED",
+						hoverBackgroundColor: "#E8EAED",
+						hoverBorderColor: "#E8EAED",
+						data: [69, 66, 24, 48, 52, 51, 44, 53, 62, 79, 51, 68]
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					scales: {
+						yAxes: [{
+							gridLines: {
+								display: false
+							},
+							stacked: false,
+							ticks: {
+								stepSize: 20
+							}
+						}],
+						xAxes: [{
+							barPercentage: .75,
+							categoryPercentage: .5,
+							stacked: false,
+							gridLines: {
+								color: "transparent"
+							}
+						}]
+					}
+				}
+			});
+		});
+	</script>
+	<script>
+		$(function() {
+			$("#datetimepicker-dashboard").datetimepicker({
+				inline: true,
+				sideBySide: false,
+				format: "L"
+			});
+		});
+	</script>
+	<script>
+		$(function() {
+			// Line chart
+			new Chart(document.getElementById("chartjs-dashboard-line"), {
+				type: "line",
+				data: {
+					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+					datasets: [{
+						label: "Sales ($)",
+						fill: true,
+						backgroundColor: "transparent",
+						borderColor: window.theme.primary,
+						data: [2015, 1465, 1487, 1796, 1387, 2123, 2866, 2548, 3902, 4938, 3917, 4927]
+					}, {
+						label: "Orders",
+						fill: true,
+						backgroundColor: "transparent",
+						borderColor: window.theme.tertiary,
+						borderDash: [4, 4],
+						data: [928, 734, 626, 893, 921, 1202, 1396, 1232, 1524, 2102, 1506, 1887]
+					}]
+				},
+				options: {
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					},
+					tooltips: {
+						intersect: false
+					},
+					hover: {
+						intersect: true
+					},
+					plugins: {
+						filler: {
+							propagate: false
+						}
+					},
+					scales: {
+						xAxes: [{
+							reverse: true,
+							gridLines: {
+								color: "rgba(0,0,0,0.05)"
+							}
+						}],
+						yAxes: [{
+							ticks: {
+								stepSize: 500
+							},
+							display: true,
+							borderDash: [5, 5],
+							gridLines: {
+								color: "rgba(0,0,0,0)",
+								fontColor: "#fff"
+							}
+						}]
+					}
+				}
+			});
+		});
+	</script>
+	<script>
+		$(function() {
+			// Pie chart
+			new Chart(document.getElementById("chartjs-dashboard-pie"), {
+				type: "pie",
+				data: {
+					labels: ["Direct", "Affiliate", "E-mail", "Other"],
+					datasets: [{
+						data: [2602, 1253, 541, 1465],
+						backgroundColor: [
+							window.theme.primary,
+							window.theme.warning,
+							window.theme.danger,
+							"#E8EAED"
+						],
+						borderColor: "transparent"
+					}]
+				},
+				options: {
+					responsive: !window.MSInputMethodContext,
+					maintainAspectRatio: false,
+					legend: {
+						display: false
+					}
+				}
+			});
+		});
+	</script>
+	<script>
+		$(function() {
+			$("#datatables-dashboard-projects").DataTable({
+				pageLength: 6,
+				lengthChange: false,
+				bFilter: false,
+				autoWidth: false
+			});
+		});
+	</script>
+
+</body>
+
+</html>
+{% block script %}
+{% endblock script %}

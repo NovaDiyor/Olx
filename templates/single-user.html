@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+	<main class="content">
+		<div class="container-fluid p-0">
+			<div class="row">
+				<div class="col-md-4 col-xl-3">
+					<div class="card mb-3">
+						<div class="card-body text-center">
+							<h5 class="card-title mb-0"> User:{{ user.username }}</h5>
+						</div>
+					  </div>
+					</div>
+				</div>
+				<div class="col-md-12 col-xl-12" style="text-align: center;">
+					<div class="card">
+						<div class="card-header">
+							<h5 class="card-title mb-0">Ads That User Created</h5>
+						</div>
+							<hr>
+						<table id="datatables-dashboard-projects" class="table table-striped my-0">
+							<thead>
+							<tr>
+								<th>Name</th>
+								<th class="d-none d-xl-table-cell">Image</th>
+							</tr>
+							</thead>
+							<tbody>
+								{% for i in ads %}
+									<tr>
+										<td class="d-none d-xl-table-cell"><a href="{% url 'single-ads' i.id %}">{{ i.name }}</a></td>
+										<td><img width="50" src="{{ i.photo.first.photo.url }}"></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}
+
+

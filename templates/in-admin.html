@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+	<main class="content">
+		<div class="container-fluid p-0">
+			<div class="row">
+				<div class="col-12 col-lg-6 col-xl-12 d-flex" style="text-align: center;">
+					<div class="card flex-fill">
+						<div class="card-header">
+							<h5 class="card-title mb-0">Ads</h5>
+						</div>
+						<table id="datatables-dashboard-projects" class="table table-striped my-0">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th class="d-none d-xl-table-cell">Date Posted</th>
+									<th class="d-none d-xl-table-cell">Image</th>
+									<th>Delete</th>
+									<th>Take</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for i in for_admin %}
+									<tr>
+										<td class="d-none d-xl-table-cell">{{ i.name }}</td>
+										<td class="d-none d-xl-table-cell">{{ i.date }}</td>
+										<td><img width="50" src="{{ i.photo.first.photo.url }}"></td>
+										<td>
+										<a href="#"><button type="submit" data-toggle="modal" data-target="#sizedModalMd" class="btn btn-danger">Reject</button></a>
+										<div class="modal fade" id="sizedModalMd" tabindex="-1" role="dialog" aria-hidden="true">
+											<div class="modal-dialog modal-md" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">Reject</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-body m-3">
+														<p class="mb-0">Do You Want To Reject This Ads?</p>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+														<button type="button" class="btn btn-danger"><a href="{% url 'reject-in' i.id %}" style="text-decoration: none; color: white;">Yes</a></button>
+													</div>
+												</div>
+											</div>
+										</div>
+										</td>
+										<td>
+											<a href="{% url 'accept-in' i.id %}"><button type="submit" class="btn btn-success">Accept</button></a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
