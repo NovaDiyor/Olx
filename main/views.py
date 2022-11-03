@@ -137,6 +137,15 @@ def region_view(request):
 
 
 @login_required(login_url='sign-in')
+def subregion_view(request):
+    context = {
+        'sub': SubRegion.objects.all(),
+        'region': Region.objects.all()
+    }
+    return render(request, "sub-region.html", context)
+
+
+@login_required(login_url='sign-in')
 def about_view(request):
     context = {
         'about': About.objects.all()
@@ -208,7 +217,7 @@ def sale(request, pk):
     ads = Ads.objects.get(id=pk)
     ads.status = 4
     ads.save()
-    return redirect('sold')
+    return redirect('accepted')
 
 
 def delete_category(request, pk):
@@ -221,6 +230,12 @@ def delete_region(request, pk):
     region = Region.objects.get(id=pk)
     region.delete()
     return redirect('region')
+
+
+def delete_subregion(request, pk):
+    region = SubRegion.objects.get(id=pk)
+    region.delete()
+    return redirect('subregion')
 
 
 def delete_about(request, pk):
@@ -245,9 +260,7 @@ def update_region(request, pk):
     region = Region.objects.get(id=pk)
     if request.method == 'POST':
         name = request.POST.get('name')
-        category = request.POST.get('category')
         region.name = name
-        region.category_id = category
         region.save()
         return redirect('region')
     return render(request, 'update-region.html', {'region': Region.objects.get(id=pk)})
@@ -263,6 +276,18 @@ def update_sub(request, pk):
         sub.save()
         return redirect('sub-category')
     return render(request, 'update-sub.html', {'sub': Subcategory.objects.get(id=pk), 'category': Category.objects.all()})
+
+
+def up_subregion(request, pk):
+    sub = SubRegion.objects.get(id=pk)
+    if request.method == 'POST':
+        district = request.POST.get('name')
+        region = request.POST.get('region')
+        sub.district = district
+        sub.region_id = region
+        sub.save()
+        return redirect('subregion')
+    return render(request, 'update-subregion.html', {'sub': SubRegion.objects.get(id=pk), 'region': Region.objects.all()})
 
 
 def update_category(request, pk):
@@ -336,6 +361,14 @@ def add_sub(request):
         category = request.POST.get("category")
         Subcategory.objects.create(name=name, category_id=category)
     return redirect("sub-category")
+
+
+def add_subregion(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        region = request.POST.get("region")
+        SubRegion.objects.create(district=name, region_id=region)
+    return redirect("subregion")
 
 
 def add_region(request):

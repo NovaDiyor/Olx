@@ -6,15 +6,15 @@
                 <form action="{% url 'add-category' %}" method="post" style="margin-bottom: 20px;" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
-                                <input type="text" name="name" placeholder="category_name" class="form-control" required>
-                            </div>
-                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
-                                <input type="file" name="photo" placeholder="logo" class="form-control-file" required>
-                            </div>
-                            <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <input type="text" name="name" placeholder="category_name" class="form-control" required>
+                        </div>
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <input type="file" name="photo" placeholder="logo" class="form-control-file" required>
+                        </div>
+                        <div class="col-2 col-sm-6 col-xl mt-2 d-flex">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
                     </div>
                 </form>
             </div>

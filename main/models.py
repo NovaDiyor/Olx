@@ -8,8 +8,8 @@ class User(AbstractUser):
         (2, 'user')
     )
     status = models.SmallIntegerField(default=1, choices=STATUS_CHOISES)
-    number = models.BigIntegerField(null=True)
-    email = models.EmailField(null=True)
+    number = models.BigIntegerField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
 
 
 class Information(models.Model):
@@ -51,7 +51,7 @@ class Subcategory(models.Model):
 
 
 class SubRegion(models.Model):
-    disc = models.CharField(max_length=210)
+    district = models.CharField(max_length=210)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
 
