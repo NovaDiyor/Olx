@@ -156,7 +156,6 @@ def register(request):
                 if len(number) == 12:
                     username = number
                     number = int(number)
-                    print(username)
                     usr = User.objects.create_user(username=username, number=number, password=password, status=2)
                     data = {
                         'username': username,
@@ -164,9 +163,9 @@ def register(request):
                         'user_id': usr.id,
                     }
                     return Response(data)
-                return Response('Your number is wrong')
+                return Response('Your number or password is wrong')
             else:
-                return Response('Your email or number is wrong')
+                return Response('Your number or password is wrong')
         except Exception as err:
             return Response({"error": f'{err}'})
     except Exception as err:
@@ -193,8 +192,10 @@ def reset_password(request):
     user = request.user
     last_password = request.POST.get('last-password')
     new_password = request.POST.get('new-password')
-    user = authenticate(username=user.username, password=last_password)
+    number = request.POST.get('number')
+    user = authenticate(username=user.username, number=number, password=last_password)
     if user is not None:
+        user.number = number
         user.set_password(new_password)
         user.save()
         return Response('Your password has changed')
@@ -318,30 +319,42 @@ def sale_ads(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([BasicAuthentication, SessionAuthentication])
 def add_ads_image(request):
-    if request.method == 'POST':
-        image = request.FILES.get('image')
-        AdImage.objects.create(photo=image)
-        return Response('done')
-    else:
-        return Response('something went wrong')
+    try:
+        if request.method == 'POST':
+            image = request.FILES['image']
+            AdImage.objects.create(photo=image)
+            return Response('done')
+        else:
+            return Response('something went wrong')
+    except Exception as err:
+        return Response({"error": f'{err}'})
 
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([BasicAuthentication, SessionAuthentication])
 def add_ads(request):
-    if request.method == 'POST':
-        user = request.user
-        region = request.POST.get('region')
-        category = request.POST.get('category')
-        photo = request.POST.getlist('photo')
-        name = request.POST.get('name')
-        price = request.POST.get('price')
-        description = request.POST.get('description')
-        a = Ads.objects.create(owner_id=user, region_id=region, category_id=category, name=name, price=price, description=description, status=1)
-        for i in photo:
-            a.student.add(AdImage.objects.get(id=i))
-            return Response('done')
-        return Response("something went wrong")
-    else:
-        return Response('You have to give POST method')
+    user = request.user
+    region = request.POST.get('region')
+    if len(region) == 0:
+        return Response("Enter Region")
+    category = request.POST.get('category')
+    if len(category) == 0:
+        return Response("Enter Category")
+    photo = request.POST.getlist('photo')
+    if len(photo) == 0:
+        return Response("Enter Photo")
+    name = request.POST.get('name')
+    if len(name) == 0:
+        return Response("Enter Name")
+    description = request.POST.get('description')
+    if len(description) == 0:
+        return Response("Enter Description")
+    price = request.POST.get('price')
+    if len(price) == 0:
+        return Response("Enter Price")
+    a = Ads.objects.create(owner_id=user.id, region_id=region, category_id=category, name=name, description=description, price=price)
+    for i in photo:
+        a.photo.add(i)
+    return Response("Done")
+

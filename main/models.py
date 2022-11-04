@@ -24,6 +24,7 @@ class Information(models.Model):
 
 
 class AdImage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='ads/')
 
 
